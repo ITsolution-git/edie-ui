@@ -142,7 +142,7 @@ export default class DeviceMenu extends React.Component {
           const item = {
             id: p.id,
             title: p.name,
-            img: p.image || 'build.png',
+            img: p.image || 'windows.png',
             template: ''
           }
           deviceItems.push(
