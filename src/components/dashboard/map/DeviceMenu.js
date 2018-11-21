@@ -12,19 +12,23 @@ export default class DeviceMenu extends React.Component {
       deviceTypes: [{
         title: 'Add Servers',
         items: []
-      }, {
-        title: 'Map Items',
-
+      },
+      {
+        title: 'Add Products',
         items: [{
           title: 'Monitor',
           img: 'build.png',
           template: 'mapItem',
           type: 'MONITOR'
-        }, {
-          title: 'Product',
+        }]
+      }, 
+      {
+        title: 'Map Items',
+        items: [{
+          title: 'Monitor',
           img: 'build.png',
           template: 'mapItem',
-          type: 'PRODUCT'
+          type: 'MONITOR'
         }]
       }],
 
@@ -34,6 +38,7 @@ export default class DeviceMenu extends React.Component {
 
   componentWillMount() {
     this.props.fetchDeviceTemplates()
+    this.props.fetchProductWithParents()
   }
 
   onChangeDeviceSearch(e) {
@@ -58,6 +63,10 @@ export default class DeviceMenu extends React.Component {
     const {allDevices, selectedMap} = this.props
     if (!selectedMap) return []
     return allDevices.filter(p => !p.line && (!p.mapids || !p.mapids.includes(selectedMap.id)))
+  }
+
+  getProducts() {
+    return this.props.vendorProducts
   }
 
   render() {

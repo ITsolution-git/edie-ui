@@ -195,7 +195,8 @@ import {
 
   FETCH_TIMEZONE,
 
-  FETCH_PRODUCT_INSTANCES
+  FETCH_PRODUCT_INSTANCES,
+  FETCH_PRODUCTS_WITH_PARENTS
 } from 'actions/types'
 
 import {concat, difference, findIndex, keys, sortBy} from 'lodash'
@@ -258,7 +259,8 @@ const initialState = {
   workflowDraw: 1,
 
   timezoneOffset: 0,
-  productInstances: []
+  productInstances: [],
+  productsWithParent: []
 }
 
 export default function (state = initialState, action) {
@@ -798,6 +800,8 @@ export default function (state = initialState, action) {
       return { ...state, timezoneOffset: action.data }
     case FETCH_PRODUCT_INSTANCES:
       return { ...state, productInstances: action.payload }
+    case FETCH_PRODUCTS_WITH_PARENTS:
+      return { ...state, productsWithParent: action.payload }
     default:
       return state
   }
