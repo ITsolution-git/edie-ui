@@ -12,19 +12,23 @@ export default class DeviceMenu extends React.Component {
       deviceTypes: [{
         title: 'Add Servers',
         items: []
-      }, {
-        title: 'Map Items',
-
+      },
+      {
+        title: 'Add Products',
         items: [{
           title: 'Monitor',
           img: 'build.png',
           template: 'mapItem',
           type: 'MONITOR'
-        }, {
-          title: 'Product',
+        }]
+      }, 
+      {
+        title: 'Map Items',
+        items: [{
+          title: 'Monitor',
           img: 'build.png',
           template: 'mapItem',
-          type: 'PRODUCT'
+          type: 'MONITOR'
         }]
       }],
 
@@ -34,6 +38,7 @@ export default class DeviceMenu extends React.Component {
 
   componentWillMount() {
     this.props.fetchDeviceTemplates()
+    this.props.fetchProductWithInstancesAndDevices()
   }
 
   onChangeDeviceSearch(e) {
@@ -58,6 +63,10 @@ export default class DeviceMenu extends React.Component {
     const {allDevices, selectedMap} = this.props
     if (!selectedMap) return []
     return allDevices.filter(p => !p.line && (!p.mapids || !p.mapids.includes(selectedMap.id)))
+  }
+
+  getProducts() {
+    return this.props.productsWithInsDevs
   }
 
   render() {
@@ -122,6 +131,22 @@ export default class DeviceMenu extends React.Component {
 
           deviceItems.push(
             <li key={p.id} onClick={this.onClickItem.bind(this, item)}>
+              <DeviceImg {...item}/>
+            </li>
+          )
+        })
+      } else if (sectionIndex === 1){
+        const newProducts = this.getProducts()
+        newProducts.forEach(p => {
+          if (!p.name || p.name.toLowerCase().indexOf(this.state.keyword.toLowerCase()) < 0) return
+          const item = {
+            id: p.id,
+            title: p.name,
+            img: p.image || 'build.png',
+            template: ''
+          }
+          deviceItems.push(
+            <li key={p.id} onClick={this.onClickItem.bind(this, p)}>
               <DeviceImg {...item}/>
             </li>
           )

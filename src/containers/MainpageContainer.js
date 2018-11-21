@@ -117,10 +117,11 @@ import {
 
   fetchRoles,
 
-    fetchVendorProducts,
-    addMapItem,
-    updateMapItem,
-    removeMapItem
+  fetchVendorProducts,
+  addMapItem,
+  updateMapItem,
+  removeMapItem,
+  fetchProductWithInstancesAndDevices
 } from 'actions'
 
 class MainpageContainer extends Component {
@@ -138,7 +139,8 @@ class MainpageContainer extends Component {
         'statuses': debounce(this.onReceiveStatus.bind(this), 500),
         'dashboard': this.onReceiveDashboard.bind(this),
         'refreshpage': this.onReceiveRefresh.bind(this),
-        'updatedDevice': this.onDeviceUpdated.bind(this)
+        'updatedDevice': this.onDeviceUpdated.bind(this),
+        'mapitem': this.onMapItemUpdate.bind(this)
       }
     })
     this.incidentSocket.connect()
@@ -221,6 +223,10 @@ class MainpageContainer extends Component {
     if (index < 0) this.deviceBuffer.push(msg)
     else this.deviceBuffer[index] = msg
     this.fnProcessBuffer()
+  }
+
+  onMapItemUpdate(data) {
+    console.log(data)
   }
 
   onReceiveRefresh () {
@@ -336,7 +342,9 @@ export default connect((state) => {
     roles: state.settings.roles,
 
     vendorProducts: state.settings.vendorProducts,
-    mapItems: state.dashboard.mapItems
+    mapItems: state.dashboard.mapItems,
+
+    productsWithInsDevs: state.settings.productsWithInsDevs
   }
 },
 dispatch => bindActionCreators({
@@ -419,8 +427,10 @@ dispatch => bindActionCreators({
 
   fetchRoles,
 
-    fetchVendorProducts,
-    addMapItem,
-    updateMapItem,
-    removeMapItem
+  fetchVendorProducts,
+  addMapItem,
+  updateMapItem,
+  removeMapItem,
+
+  fetchProductWithInstancesAndDevices
 }, dispatch))(withRouter(MainpageContainer))
