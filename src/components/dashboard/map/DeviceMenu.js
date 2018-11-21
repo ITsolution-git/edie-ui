@@ -38,7 +38,7 @@ export default class DeviceMenu extends React.Component {
 
   componentWillMount() {
     this.props.fetchDeviceTemplates()
-    this.props.fetchProductWithParents()
+    this.props.fetchProductWithInstancesAndDevices()
   }
 
   onChangeDeviceSearch(e) {
@@ -66,7 +66,7 @@ export default class DeviceMenu extends React.Component {
   }
 
   getProducts() {
-    return this.props.vendorProducts
+    return this.props.productsWithInsDevs
   }
 
   render() {
@@ -131,6 +131,22 @@ export default class DeviceMenu extends React.Component {
 
           deviceItems.push(
             <li key={p.id} onClick={this.onClickItem.bind(this, item)}>
+              <DeviceImg {...item}/>
+            </li>
+          )
+        })
+      } else if (sectionIndex === 1){
+        const newProducts = this.getProducts()
+        newProducts.forEach(p => {
+          if (!p.name || p.name.toLowerCase().indexOf(this.state.keyword.toLowerCase()) < 0) return
+          const item = {
+            id: p.id,
+            title: p.name,
+            img: p.image || 'build.png',
+            template: ''
+          }
+          deviceItems.push(
+            <li key={p.id} onClick={this.onClickItem.bind(this, p)}>
               <DeviceImg {...item}/>
             </li>
           )

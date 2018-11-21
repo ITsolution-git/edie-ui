@@ -121,7 +121,7 @@ import {
   addMapItem,
   updateMapItem,
   removeMapItem,
-  fetchProductWithParents
+  fetchProductWithInstancesAndDevices
 } from 'actions'
 
 class MainpageContainer extends Component {
@@ -344,7 +344,7 @@ export default connect((state) => {
     vendorProducts: state.settings.vendorProducts,
     mapItems: state.dashboard.mapItems,
 
-    productsWithParent: state.settings.productsWithParent
+    productsWithInsDevs: state.settings.productsWithInsDevs
   }
 },
 dispatch => bindActionCreators({
@@ -432,5 +432,5 @@ dispatch => bindActionCreators({
   updateMapItem,
   removeMapItem,
 
-  fetchProductWithParents
+  fetchProductWithInstancesAndDevices
 }, dispatch))(withRouter(MainpageContainer))

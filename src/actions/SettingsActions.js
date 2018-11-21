@@ -136,7 +136,7 @@ import {
 
   NO_AUTH_ERROR,
   FETCH_PRODUCT_INSTANCES,
-  FETCH_PRODUCTS_WITH_PARENTS
+  FETCH_PRODUCTS_WITH_INSTANCES_AND_DEVICES
 } from './types'
 
 import { apiError } from './Errors'
@@ -1075,13 +1075,13 @@ export const fetchDeviceById = (id) => {
   } 
 }
 
-export const fetchProductWithParents = () => {
+export const fetchProductWithInstancesAndDevices = () => {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/product/instance/findProductsWithParents`)
+    axios.get(`${ROOT_URL}/product/search/findProductsWithInstancesAndDevices`)
     .then(response => {
       dispatch({ 
-        type: FETCH_PRODUCTS_WITH_PARENTS, 
-        payload: response.data._embedded.deviceNamesAndInstances})
+        type: FETCH_PRODUCTS_WITH_INSTANCES_AND_DEVICES, 
+        payload: response.data._embedded.products})
     })
     .catch(error => apiError(dispatch, error))
   } 
