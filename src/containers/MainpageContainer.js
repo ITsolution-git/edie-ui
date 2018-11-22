@@ -139,7 +139,7 @@ class MainpageContainer extends Component {
         'statuses': debounce(this.onReceiveStatus.bind(this), 500),
         'dashboard': this.onReceiveDashboard.bind(this),
         'refreshpage': this.onReceiveRefresh.bind(this),
-        'updatedDevice': this.onDeviceUpdated.bind(this),
+        // 'updatedDevice': this.onDeviceUpdated.bind(this),
         'mapitem': this.onMapItemUpdate.bind(this)
       }
     })
@@ -226,7 +226,7 @@ class MainpageContainer extends Component {
   }
 
   onMapItemUpdate(data) {
-    console.log(data)
+    console.log('MapItem', data)
   }
 
   onReceiveRefresh () {

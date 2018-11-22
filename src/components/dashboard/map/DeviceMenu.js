@@ -142,8 +142,9 @@ export default class DeviceMenu extends React.Component {
           const item = {
             id: p.id,
             title: p.name,
-            img: p.image || 'windows.png',
-            template: ''
+            img: p.image || 'cbc00bb0-fde0-4781-98b5-ab5280348cec',
+            template: '',
+            type: 'PRODUCT'
           }
           deviceItems.push(
             <li key={p.id} onClick={this.onClickItem.bind(this, p)}>

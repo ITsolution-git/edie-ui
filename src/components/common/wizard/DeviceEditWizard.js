@@ -116,8 +116,9 @@ class DeviceEditWizard extends React.Component {
 
   didSave (res) {
     if (!res) return
-    const {onFinish} = this.props
+    const {onFinish, history, selectedDevice } = this.props
     onFinish && onFinish(res)
+    history.push(`/dashboard/servers/${selectedDevice.slug}/detail`)
   }
 
   handleFormSubmit (formProps) {

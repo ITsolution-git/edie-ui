@@ -20,7 +20,7 @@ class MapItemModal extends React.Component {
     }
 
     handleFormSubmit(values) {
-        const {vendorProducts, editMapItem} = this.props
+        const {productsWithInsDevs, editMapItem} = this.props
         const {type} = editMapItem
         const {selIndex, selParent} = this.state
         let item = null
@@ -40,7 +40,7 @@ class MapItemModal extends React.Component {
                 })
                 break
             case 'PRODUCT':
-                item = find(vendorProducts, {id: selIndex})
+                item = find(productsWithInsDevs, {id: selIndex})
                 break
             default:
                 item = null
@@ -65,16 +65,18 @@ class MapItemModal extends React.Component {
     }
 
     render() {
-        const {handleSubmit, onClose, editMapItem, vendorProducts} = this.props
+        const {handleSubmit, onClose, editMapItem, vendorProducts, productsWithInsDevs, devices} = this.props
         return (
             <MapItemModalView
                 selIndex={this.state.selIndex}
                 onClickRow={this.onClickRow.bind(this)}
 
                 vendorProducts={vendorProducts}
-
+                productsWithInsDevs={productsWithInsDevs}
                 type={editMapItem.type}
+                selectedItem={editMapItem}
                 devices={this.getServers()}
+                allDevices={devices}
                 onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}
                 onClose={onClose}
             />

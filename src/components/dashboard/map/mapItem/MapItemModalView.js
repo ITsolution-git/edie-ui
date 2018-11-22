@@ -55,19 +55,18 @@ export default class MapItemModalView extends React.Component {
         return (
             <CardPanel title="Monitors" isBack={true} onBack={() => this.setState({isClickedDevice: false})}>
                 <div style={{maxHeight: 300, overflow: 'auto'}}>
-                    {devices
-                        .filter(device => device.id === selectedDevice.id)
-                        .map((device, i) => (device.monitors || []).map((monitor, index)=>
+                    {devices.map((device, index) => (
                         <AppletCard 
-                            key={monitor.uid}
+                            key={device.id}
                             selected={selIndex}
                             color={colors[index % colors.length]}
-                            name={monitor.name || 'Unknown'}
-                            desc={monitor.name}
-                            onClick={() => onClickRow(monitor.uid, device)}
+                            name={device.templateName || 'Unknown'}
+                            desc={device.name}
+                            desc2={<span>{trimOSName(device.osDetails)}<br/>{device.wanip || ''}</span>}
+                            desc3={device.hostname || 'Unknown'}
+                            onClick={() => this.onClickDevice(device)}
                             titleLimit={15}
                             img={`${extImageBaseUrl}${device.image}`}
-                            verified={true}
                         />
                     ))}
                 </div>
@@ -82,34 +81,27 @@ export default class MapItemModalView extends React.Component {
     }
 
     renderProducts () {
-        const {vendorProducts, onClickRow, selIndex} = this.props
+        const { allDevices, productsWithInsDevs, onClickRow, selIndex, selectedItem} = this.props
         const { selectedDevice } = this.state
+        let product = productsWithInsDevs[selectedItem.index]
+        let devices = allDevices.filter(device => product.deviceNamesAndInstances.values && product.deviceNamesAndInstances.values.includes(device.id))
         return (
             <CardPanel title="Products"  isBack={true} onBack={() => this.setState({isClickedDevice: false})}>
                 <div style={{maxHeight: 300, overflow: 'auto'}}>
-                    <table className="table table-hover">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Device</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            vendorProducts.map(p => {
-                                return this.getProductByDevice(p) && (
-                                    <tr key={p.id}
-                                        className={p.id === selIndex ? 'selected' : ''}
-                                        onClick={() => onClickRow(p.id, selectedDevice )}
-                                    >
-                                        <td>{ p.name }</td>
-                                        <td>{ selectedDevice.name }</td>
-                                    </tr>
-                                )
-                            })
-                        }
-                        </tbody>
-                    </table>
+                    {devices                       
+                        .map((device, i) => (device.monitors || []).map((monitor, index)=>
+                        <AppletCard 
+                            key={monitor.uid}
+                            selected={selIndex}
+                            color={colors[index % colors.length]}
+                            name={monitor.name || 'Unknown'}
+                            desc={monitor.name}
+                            onClick={() => onClickRow(monitor.uid, device)}
+                            titleLimit={15}
+                            img={`${extImageBaseUrl}${device.image}`}
+                            verified={true}
+                        />
+                    ))}
                 </div>
             </CardPanel>
         )

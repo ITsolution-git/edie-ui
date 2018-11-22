@@ -338,7 +338,24 @@ class Map extends React.Component {
             clientY: offset.y + top
         })
         let {x, y} = pos
+        debugger
+        if (item.type === 'PRODUCT') {
+            const { productsWithInsDevs } = this.props
+            const index = findIndex(productsWithInsDevs, {id: item.id})
+            if (index < 0) return
+            let product = productsWithInsDevs[index]
+            this.setState({
+                mapItemModalOpen: true,
+                editMapItem: {
+                    type: 'PRODUCT',
+                    index: index,
+                    id: item.id
+                },
 
+                dropItem: null,
+                selectedItem: {}
+            })
+        }
         if (item.id) {
             const {allDevices, selectedMap} = this.props
             const index = findIndex(allDevices, {id: item.id})
@@ -757,13 +774,14 @@ class Map extends React.Component {
 
     renderMapItemModal() {
         if (!this.state.mapItemModalOpen) return null
-        const {devices, fetchDevices, vendorProducts, fetchVendorProducts} = this.props
+        const {devices, fetchDevices, vendorProducts, fetchVendorProducts, productsWithInsDevs} = this.props
         return (
             <MapItemModal
                 devices={devices}
                 fetchDevices={fetchDevices}
                 editMapItem={this.state.editMapItem}
                 vendorProducts={vendorProducts}
+                productsWithInsDevs={productsWithInsDevs}
                 fetchVendorProducts={fetchVendorProducts}
                 onSave={this.onSaveMapItem.bind(this)}
                 onClose={this.onCloseMapItem.bind(this)}
