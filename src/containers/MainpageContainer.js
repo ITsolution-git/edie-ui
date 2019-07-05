@@ -140,7 +140,7 @@ class MainpageContainer extends Component {
         'dashboard': this.onReceiveDashboard.bind(this),
         'refreshpage': this.onReceiveRefresh.bind(this),
         // 'updatedDevice': this.onDeviceUpdated.bind(this),
-        'mapitem': this.onMapItemUpdate.bind(this)
+        'mapitems': this.onMapItemUpdate.bind(this)
       }
     })
     this.incidentSocket.connect()
