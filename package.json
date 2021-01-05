@@ -6,7 +6,7 @@
     "@babel/runtime": "7.0.0-beta.55",
     "@material-ui/core": "^1.0.0",
     "@material-ui/icons": "^1.0.0",
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "bootstrap-daterangepicker": "^2.1.25",
     "chart.js": "^2.6.0",
     "country-data": "0.0.31",
