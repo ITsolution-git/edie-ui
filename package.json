@@ -8,7 +8,7 @@
     "@material-ui/icons": "^1.0.0",
     "axios": "^0.16.1",
     "bootstrap-daterangepicker": "^2.1.25",
-    "chart.js": "^2.6.0",
+    "chart.js": "^2.9.4",
     "country-data": "0.0.31",
     "d3": "^3.5.17",
     "jquery": "^3.2.1",
